@@ -1,0 +1,152 @@
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:$PATH:/usr/local/go/bin
+
+# Path to your oh-my-zsh installation.
+export ZSH="/home/ubuntu/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="agnoster"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+
+# Uncomment the following line to change how often to auto-update (in days).
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+    git
+    z
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# ztex aliases
+alias clr='clear'
+alias rrm='f(){rm -rf /tmp/"$1"; mv "$1" /tmp;}; f'
+alias fn='f() {find -iname "$1";}; f'
+alias console_red="sudo picocom -b 115200 /dev/ttyUSB0"
+alias console_green="sudo picocom -b 115200 /dev/ttyUSB3"
+alias console_blue="sudo picocom -b 115200 /dev/ttyUSB1"
+alias flash_green='fn() {cd /home/ubuntu/SimplicityCommander-Linux/commander; commander flash --serialno "$1" --device EFR32 "$2" --masserase;}; fn'
+WORKSPACE='/home/ubuntu/workspace'
+alias cw='cd ${WORKSPACE}'
+WORKSPACE_RING='/home/ubuntu/workspace/vendor/ring'
+alias cr='cd ${WORKSPACE_RING}'
+WORKSPACE_RFW='/home/ubuntu/workspace/vendor/ring/rfw'
+alias cf='cd ${WORKSPACE_RFW}'
+WORKSPACE_ZTEX='/home/ubuntu/ztex'
+alias cz='cd ${WORKSPACE_ZTEX}'
+WORKSPACE_AMAZON='/home/ubuntu/workspace/vendor/amazon/acs'
+alias ca='cd ${WORKSPACE_AMAZON}'
+alias killpico='sudo killall -9 picocom'
+alias chere='ctags -R .;cscope -Rbq;'
+alias chereclear='rm -rf tags cscope.out'
+alias ag='ag --path-to-ignore ~/.ignore'
+alias wresync='cw && repo sync -c -d -j8'
+alias winit='repo init -u ssh://r-gerrit.labcollab.net/ring/manifest -b rdk/main/dev'
+alias console_mars='sudo picocom --send-cmd "sx -vv" -b 230400 /dev/ttyUSB0'
+alias dump_console_mars='sudo picocom --send-cmd "sx -vv" -b 230400 /dev/ttyUSB0 | tee /tmp/mars.log'
+alias dump_screen_mars='sudo screen /dev/ttyUSB0 230400 | tee /tmp/mars.log'
+
+NABOOM_VARIANT='rdk_naboom-singleos-debug'
+MARS_VARIANT='rdk_hdk_mars-singleos-debug'
+alias build_mars='cd ${WORKSPACE} && source ./build/envsetup.sh && lunch ${MARS_VARIANT} && make -j8 && make release'
+alias build_mars_j1='cd ${WORKSPACE} && source ./build/envsetup.sh && lunch ${MARS_VARIANT} && make -j1 && make release'
+alias build_naboom='cd ${WORKSPACE} && source ./build/envsetup.sh && lunch ${NABOOM_VARIANT} && make -j8 && make release'
+alias build_naboom_j1='cd ${WORKSPACE} && source ./build/envsetup.sh && lunch ${NABOOM_VARIANT} && make && make release'
+#legancy
+alias cl='cd /home/ubuntu/legancy/vendor/amazon/acs'
+
+# for RISCV emulator
+alias docker-riscv='sudo docker run -d --publish 127.0.0.1:2222:2222/tcp davidburela/riscv-emulator qemu-system-riscv64 -smp 2 -m 2G -cpu rv64 -nographic -machine virt -kernel /usr/lib/u-boot/qemu-riscv64_smode/uboot.elf -device virtio-blk-device,drive=hd -drive file=artifacts/image.qcow2,if=none,id=hd -device virtio-net-device,netdev=net -netdev user,id=net,hostfwd=tcp::2222-:22 -object rng-random,filename=/dev/urandom,id=rng -device virtio-rng-device,rng=rng -append "root=LABEL=rootfs console=ttyS0" && echo "The password is: root" && ssh root@localhost -p 2222'
+
+# for GDB
+OPENOCD_PATH='/home/ubuntu/ztex/riscv-openocd-0.10.0-2020.12.1-x86_64-linux-ubuntu14'
+GDB="${OPENOCD_PATH}/riscv64-unknown-elf-gdb"
+CFG="${OPENOCD_PATH}/mars_u54mc_jlink.cfg"
+OPENOCD="${OPENOCD_PATH}/bin/openocd"
+alias openocd_launch='${OPENOCD} -f ${CFG}'
+alias jlink_gdb="${GDB} "$1" -ex 'set remotetimeout 15' -ex 'target extended-remote:3333' -ex 'thread 2'" # jlink_gdb /path/to/binary/with/symbols/img.out
