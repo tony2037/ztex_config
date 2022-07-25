@@ -1,0 +1,48 @@
+[user]
+    name = Tony Liu
+    email = liulyuch@amazon.com
+
+[url "ssh://liulyuch@r-gerrit.labcollab.net:9418/"]
+    insteadOf = git://r-gerrit.labcollab.net/
+    insteadOf = https://r-gerrit.labcollab.net/gerrit/
+    insteadOf = http://r-gerrit.labcollab.net/gerrit/
+    insteadOf = ssh://r-gerrit.labcollab.net:9418/
+    insteadOf = ssh://r-gerrit.labcollab.net/
+    insteadOf = ssh://liulyuch@r-gerrit.labcollab.net:9418/
+
+[url "ssh://liulyuch@r-gerrit.labcollab.net:9418/"]
+    pushInsteadOf = git://r-gerrit.labcollab.net/
+    pushInsteadOf = ssh://r-gerrit.labcollab.net:9418/
+    pushInsteadOf = ssh://liulyuch@r-gerrit.labcollab.net:9418/
+    pushInsteadOf = git://r-gerrit.labcollab.net/
+    pushInsteadOf = http://r-gerrit.labcollab.net/gerrit/
+    pushInsteadOf = https://r-gerrit.labcollab.net/gerrit/
+    pushInsteadOf = ssh://r-gerrit.labcollab.net:9418/
+    pushInsteadOf = ssh://r-gerrit.labcollab.net/
+    pushInsteadOf = ssh://liulyuch@r-gerrit.labcollab.net:9418/
+[color]
+	ui = auto
+[core]
+	editor = vim
+[alias]
+	a = add -u
+    st = status
+    sts = status -s
+    sh = show HEAD
+    co = checkout
+    br = branch
+    lo = log --oneline
+    ll = log --pretty=format:'%h %ad | %s%d [%Cgreen%an%Creset]' --graph --date=short
+    lg = log --graph --pretty=format:'%Cred%h%Creset %ad |%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset [%Cgreen%an%Creset]' --abbrev-commit --date=short
+    df = diff
+    dv = difftool -t vimdiff -y
+    pa = push amazon HEAD:refs/for/rdk/main/dev
+    ca = git checkout amazon/rdk/main/dev
+    cl = clang-format HEAD~1
+[color "diff"]
+    meta = cyan
+    plain = white dim
+    old = red bold
+    new = green bold
+[http]
+	postBuffer = 1048576000
