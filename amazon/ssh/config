@@ -1,0 +1,6 @@
+Host r-gerrit.labcollab.net
+    HostName r-gerrit.labcollab.net
+    User liulyuch
+    Port 9418
+    IdentityFile /home/ubuntu/.ssh/id_rsa
+
