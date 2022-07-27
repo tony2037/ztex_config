@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+ 
+# Set DIR to the directory where the script was called. This directory is bind mounted in the 
+# container and set as the working directory. This has teh effect of just switching to Ubuntu
+# at the current working directory.
+DIR="$(readlink -f /proc/$PPID/cwd)"
+
+# Comment the line below to avoid rebuilding the image every time you run it.
+# Note that you will not automatically recieve security updates in this case
+$(dirname $0)/rebuild-my-ubuntu
+
+# Run the container. The DISPLAY and .X11-unix lines allow for graphical applications in X windows.
+# Comment out the '--rm \' line below to prevent removal of your container upon exit.
+docker run \
+	--name ubuntu-rdk \
+	--rm \
+	--env DISPLAY=${DISPLAY} \
+	-v /tmp/.X11-unix:/tmp/.X11-unix \
+	-v ~/.ssh:/home/$(id -un)/.ssh: \
+	-v ~/.gitconfig:/home/$(id -un)/.gitconfig: \
+	-it \
+	--mount type=bind,src=$DIR,target=/home/$(id -un)/$(basename $DIR) \
+	--workdir /home/$(id -un)/$(basename $DIR) \
+	ubuntu-rdk

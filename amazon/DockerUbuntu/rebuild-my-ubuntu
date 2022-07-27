@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Build the image
+docker build \
+	-t ubuntu-rdk \
+	--pull \
+	--build-arg MY_USER=$(id -un) \
+	--build-arg MY_UID=$(id -u) \
+	--build-arg MY_GID=$(id -g) \
+	--build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" \
+	--build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" \
+	--build-arg ssh_config="$(cat ~/.ssh/config_for_guest)" \
+	--build-arg MY_SHELL=$SHELL $(dirname $0)
