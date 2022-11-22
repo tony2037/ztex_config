@@ -150,3 +150,8 @@ CFG="${OPENOCD_PATH}/mars_u54mc_jlink.cfg"
 OPENOCD="${OPENOCD_PATH}/bin/openocd"
 alias openocd_launch='${OPENOCD} -f ${CFG}'
 alias jlink_gdb="${GDB} "$1" -ex 'set remotetimeout 15' -ex 'target extended-remote:3333' -ex 'thread 2'" # jlink_gdb /path/to/binary/with/symbols/img.out
+
+alias dump_console_mars='sudo picocom --send-cmd "sx -vv" -b 230400 $MARS_PORT | awk '\''{ print strftime("%c: "), $0; fflush(); }'\'' |tee /tmp/mars.log'
+alias gen_lst='f(){riscv64-unknown-elf-objdump --source --all-headers --demangle --line-numbers --wide $1 > $2};f'
+alias openocd_launch='co; sudo openocd -f mars_u54mc_jlink.cfg'
+alias gdb_launch="riscv64-unknown-elf-gdb $1 -ex 'set remotetimeout 5000' -ex 'target extended-remote:3333' -ex 'thread 2'"
